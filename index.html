@@ -138,6 +138,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
       <div class="u-av" id="uav">?</div>
       <div class="u-nome" id="unome">Usuário</div>
     </button>
+    <button id="btn-sair-hdr" style="background:rgba(255,255,255,0.13);border:none;border-radius:8px;padding:6px 10px;color:rgba(255,255,255,0.7);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;">Sair</button>
   </div>
   <div class="tabs">
     <button class="tab active" data-tab="dash">📊 Vendas</button>
@@ -275,8 +276,9 @@ function setSS(st,txt){
 }
 function mesKey(){return anoSel+"-"+String(mesSel+1).padStart(2,"0");}
 function tFunc(uid){
+  // uid pode ser a key do firebase (u_xxx) ou o username — aceita os dois
   const mk=mesKey();
-  return Object.values(VENDAS).filter(v=>v.u===uid&&v.d&&v.d.startsWith(mk)).reduce((s,v)=>s+v.v,0);
+  return Object.values(VENDAS).filter(v=>v.d&&v.d.startsWith(mk)&&(v.u===uid||v.u===UA.key)).reduce((s,v)=>s+v.v,0);
 }
 function tTotal(){
   const mk=mesKey();
@@ -333,6 +335,9 @@ async function doLogin(){
 }
 
 function entrar(){
+  // Salvar sessão para sobreviver ao F5
+  sessionStorage.setItem("ev_session", JSON.stringify({UA, GER}));
+
   document.getElementById("tela-login").style.display="none";
   const app=document.getElementById("tela-app");
   app.style.display="flex";app.style.flexDirection="column";
@@ -348,7 +353,17 @@ function entrar(){
   startListeners();
 }
 
+// Ícone do usuário → volta pro dashboard (não faz logout)
+document.getElementById("btn-logout").addEventListener("click", function(){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+  document.getElementById("sc-dash").classList.add("active");
+  document.querySelector(".tab").classList.add("active");
+  renderDash();
+});
+
 function doLogout(){
+  sessionStorage.removeItem("ev_session");
   stopListeners();UA=null;GER=false;
   document.getElementById("tela-app").style.display="none";
   document.getElementById("tela-login").style.display="flex";
@@ -356,8 +371,21 @@ function doLogout(){
   document.getElementById("inp-pass").value="";
   document.getElementById("lerr").textContent="";
 }
-document.getElementById("btn-logout").addEventListener("click",doLogout);
 document.getElementById("btn-logout2").addEventListener("click",doLogout);
+document.getElementById("btn-sair-hdr").addEventListener("click",doLogout);
+
+// Restaurar sessão ao recarregar página
+(function restaurarSessao(){
+  try{
+    const s = sessionStorage.getItem("ev_session");
+    if(!s) return;
+    const parsed = JSON.parse(s);
+    if(!parsed.UA) return;
+    UA = parsed.UA;
+    GER = parsed.GER;
+    entrar();
+  }catch(e){ sessionStorage.removeItem("ev_session"); }
+})();
 
 // TABS
 document.querySelectorAll(".tab").forEach(btn=>{
@@ -374,7 +402,7 @@ document.querySelectorAll(".tab").forEach(btn=>{
 });
 
 function renderDash(){
-  const total=GER?tTotal():tFunc(UA.u);
+  const total=GER?tTotal():tFunc(UA.key||UA.u);
   const idx=pidx(total),pct=PATS[idx].pct,com=total*pct/100;
   const prog=Math.min(100,(total/META)*100);
   atualizarMesLabel();
@@ -398,7 +426,7 @@ function renderGraf(){
   const mk=mesKey();
   const vendas=GER
     ?Object.values(VENDAS).filter(v=>v.d&&v.d.startsWith(mk))
-    :Object.values(VENDAS).filter(v=>v.u===UA.u&&v.d&&v.d.startsWith(mk));
+    :Object.values(VENDAS).filter(v=>v.d&&v.d.startsWith(mk)&&(v.u===UA.u||v.u===UA.key));
   const pd={};
   vendas.forEach(v=>{pd[v.d]=(pd[v.d]||0)+v.v;});
   const dias=Object.keys(pd).sort();
@@ -416,7 +444,7 @@ function renderGraf(){
 }
 
 function renderTabela(idx){
-  if(idx===undefined){const t=GER?tTotal():tFunc(UA.u);idx=pidx(t);}
+  if(idx===undefined){const t=GER?tTotal():tFunc(UA.key||UA.u);idx=pidx(t);}
   const lims=[34999,39999,44999,49999,54999,59999,65000];
   const tb=document.getElementById("tb-pat");
   if(!tb)return; tb.innerHTML="";
