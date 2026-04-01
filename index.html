@@ -50,7 +50,13 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
 .sync-dot.err{background:#c0392b;}
 .sync-dot.load{background:var(--dourado);animation:pulse 1s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.mes-lbl{text-align:center;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+
+/* SELETOR DE MÊS */
+.mes-selector{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;}
+.mes-btn{background:none;border:none;cursor:pointer;font-size:20px;color:var(--marrom2);padding:4px 8px;border-radius:8px;transition:background 0.15s;}
+.mes-btn:hover{background:var(--bege2);}
+.mes-label{font-family:"Playfair Display",serif;font-size:16px;font-weight:700;color:var(--marrom);min-width:160px;text-align:center;}
+
 .card{background:#fff;border-radius:14px;border:1px solid var(--bege2);padding:16px;margin-bottom:12px;}
 .card-lbl{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
 .v-big{font-family:"Playfair Display",serif;font-size:30px;font-weight:700;color:var(--marrom);}
@@ -141,7 +147,14 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
 
   <div class="screen active" id="sc-dash">
     <div class="sync-bar"><div class="sync-dot load" id="sync-dot"></div><span id="sync-txt">Conectando...</span></div>
-    <div class="mes-lbl" id="mes-lbl"></div>
+
+    <!-- SELETOR DE MÊS -->
+    <div class="mes-selector">
+      <button class="mes-btn" id="btn-mes-ant">&#8249;</button>
+      <div class="mes-label" id="mes-lbl">Carregando...</div>
+      <button class="mes-btn" id="btn-mes-prox">&#8250;</button>
+    </div>
+
     <div class="card">
       <div class="card-lbl">Total vendido no mês</div>
       <div class="v-big" id="d-total">R$ 0,00</div>
@@ -185,7 +198,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
     <button class="btn bv" id="btn-cadastrar">+ Cadastrar funcionário</button>
     <div class="ok" id="g-msg2"></div>
     <div class="divider"></div>
-    <button class="btn bd" id="btn-zerar">🗑 Zerar mês (novo mês)</button>
+    <button class="btn bd" id="btn-zerar">🗑 Zerar mês atual</button>
     <button class="btn bo" id="btn-logout2" style="margin-top:4px">Sair</button>
     <div style="height:20px"></div>
   </div>
@@ -208,7 +221,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-const firebaseConfig = {
+firebase.initializeApp({
   apiKey: "AIzaSyCfQs_L0hDfGDl5zzlYMswfNV272Y5ATCw",
   authDomain: "emporio-vendas.firebaseapp.com",
   databaseURL: "https://emporio-vendas-default-rtdb.firebaseio.com",
@@ -216,8 +229,7 @@ const firebaseConfig = {
   storageBucket: "emporio-vendas.firebasestorage.app",
   messagingSenderId: "356758404752",
   appId: "1:356758404752:web:93b8c48cea2219f990e215"
-};
-firebase.initializeApp(firebaseConfig);
+});
 const db = firebase.database();
 
 const SENHA_GER = "emporio123";
@@ -237,37 +249,53 @@ const MOTIVS = [
   "💛 A meta está ao seu alcance. Um passo de cada vez!",
   "🏆 Grandes vendedoras fazem acontecer. E você é uma delas!"
 ];
+const MESES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 
-let UA = null, GER = false, GRAF = null;
-let USERS = {}, VENDAS = {};
-let unsubV = null, unsubU = null;
+let UA=null, GER=false, GRAF=null;
+let USERS={}, VENDAS={};
+let mesSel = new Date().getMonth();
+let anoSel = new Date().getFullYear();
 
 function fmt(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
 function pidx(t){if(t<=30000)return 0;if(t<=35000)return 1;if(t<=40000)return 2;if(t<=45000)return 3;if(t<=50000)return 4;if(t<=55000)return 5;return 6;}
 function setSS(st,txt){
-  const d=document.getElementById("sync-dot");
-  const s=document.getElementById("sync-txt");
-  if(d){d.className="sync-dot "+st;}
-  if(s){s.textContent=txt;}
+  const d=document.getElementById("sync-dot"),s=document.getElementById("sync-txt");
+  if(d)d.className="sync-dot "+st;
+  if(s)s.textContent=txt;
 }
-function tFunc(uid){return Object.values(VENDAS).filter(v=>v.u===uid).reduce((s,v)=>s+v.v,0);}
-function setMes(){
-  const m=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-  const n=new Date();
-  const el=document.getElementById("mes-lbl");
-  if(el)el.textContent=m[n.getMonth()]+" "+n.getFullYear();
+function mesKey(){return anoSel+"-"+String(mesSel+1).padStart(2,"0");}
+function tFunc(uid){
+  const mk=mesKey();
+  return Object.values(VENDAS).filter(v=>v.u===uid&&v.d&&v.d.startsWith(mk)).reduce((s,v)=>s+v.v,0);
+}
+function tTotal(){
+  const mk=mesKey();
+  return Object.values(VENDAS).filter(v=>v.d&&v.d.startsWith(mk)).reduce((s,v)=>s+v.v,0);
+}
+function atualizarMesLabel(){
+  document.getElementById("mes-lbl").textContent=MESES[mesSel]+" "+anoSel;
 }
 
+// SELETOR DE MÊS
+document.getElementById("btn-mes-ant").addEventListener("click",function(){
+  mesSel--; if(mesSel<0){mesSel=11;anoSel--;}
+  atualizarMesLabel(); renderDash();
+});
+document.getElementById("btn-mes-prox").addEventListener("click",function(){
+  mesSel++; if(mesSel>11){mesSel=0;anoSel++;}
+  atualizarMesLabel(); renderDash();
+});
+
 function startListeners(){
-  unsubV = db.ref("vendas").on("value", snap=>{
-    VENDAS = snap.val()||{};
+  db.ref("vendas").on("value",snap=>{
+    VENDAS=snap.val()||{};
     setSS("ok","Sincronizado em tempo real ✓");
     if(document.getElementById("sc-dash").classList.contains("active")) renderDash();
-    if(GER && document.getElementById("sc-ger").classList.contains("active")) renderHist();
+    if(GER&&document.getElementById("sc-ger").classList.contains("active")) renderHist();
   });
-  unsubU = db.ref("users").on("value", snap=>{
-    USERS = snap.val()||{};
-    if(GER && document.getElementById("sc-ger").classList.contains("active")){renderFuncs();renderFuncSel();}
+  db.ref("users").on("value",snap=>{
+    USERS=snap.val()||{};
+    if(GER&&document.getElementById("sc-ger").classList.contains("active")){renderFuncs();renderFuncSel();}
   });
 }
 function stopListeners(){
@@ -276,31 +304,28 @@ function stopListeners(){
 }
 
 // LOGIN
-document.getElementById("btn-login").addEventListener("click", doLogin);
-document.getElementById("inp-pass").addEventListener("keydown", function(e){if(e.key==="Enter")doLogin();});
+document.getElementById("btn-login").addEventListener("click",doLogin);
+document.getElementById("inp-pass").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin();});
 
 async function doLogin(){
-  const u = document.getElementById("inp-user").value.trim();
-  const p = document.getElementById("inp-pass").value;
-  const er = document.getElementById("lerr");
-  const sp = document.getElementById("lspin");
+  const u=document.getElementById("inp-user").value.trim();
+  const p=document.getElementById("inp-pass").value;
+  const er=document.getElementById("lerr"),sp=document.getElementById("lspin");
   er.textContent=""; sp.textContent="Verificando...";
-  if(u.toLowerCase()==="gerente" && p===SENHA_GER){
-    UA={nome:"Gerente",u:"gerente"}; GER=true; sp.textContent=""; entrar(); return;
-  }
+  if(u.toLowerCase()==="gerente"&&p===SENHA_GER){UA={nome:"Gerente",u:"gerente"};GER=true;sp.textContent="";entrar();return;}
   try{
-    const snap = await db.ref("users").once("value");
-    const users = snap.val()||{};
-    const entry = Object.entries(users).find(([k,v])=>v.u.toLowerCase()===u.toLowerCase()&&v.s===p);
-    if(entry){UA={...entry[1],key:entry[0]}; GER=false; sp.textContent=""; entrar(); return;}
-  }catch(e){er.textContent="Erro de conexão. Tente novamente."; sp.textContent=""; return;}
-  er.textContent="Usuário ou senha incorretos."; sp.textContent="";
+    const snap=await db.ref("users").once("value");
+    const users=snap.val()||{};
+    const entry=Object.entries(users).find(([k,v])=>v.u.toLowerCase()===u.toLowerCase()&&v.s===p);
+    if(entry){UA={...entry[1],key:entry[0]};GER=false;sp.textContent="";entrar();return;}
+  }catch(e){er.textContent="Erro de conexão. Tente novamente.";sp.textContent="";return;}
+  er.textContent="Usuário ou senha incorretos.";sp.textContent="";
 }
 
 function entrar(){
   document.getElementById("tela-login").style.display="none";
   const app=document.getElementById("tela-app");
-  app.style.display="flex"; app.style.flexDirection="column";
+  app.style.display="flex";app.style.flexDirection="column";
   document.getElementById("uav").textContent=UA.nome.charAt(0).toUpperCase();
   document.getElementById("unome").textContent=UA.nome.split(" ")[0];
   document.getElementById("tab-ger").style.display=GER?"block":"none";
@@ -309,24 +334,24 @@ function entrar(){
   document.querySelector(".tab").classList.add("active");
   document.getElementById("sc-dash").classList.add("active");
   setSS("load","Conectando...");
+  atualizarMesLabel();
   startListeners();
-  setMes();
 }
 
 function doLogout(){
-  stopListeners(); UA=null; GER=false;
+  stopListeners();UA=null;GER=false;
   document.getElementById("tela-app").style.display="none";
   document.getElementById("tela-login").style.display="flex";
   document.getElementById("inp-user").value="";
   document.getElementById("inp-pass").value="";
   document.getElementById("lerr").textContent="";
 }
-document.getElementById("btn-logout").addEventListener("click", doLogout);
-document.getElementById("btn-logout2").addEventListener("click", doLogout);
+document.getElementById("btn-logout").addEventListener("click",doLogout);
+document.getElementById("btn-logout2").addEventListener("click",doLogout);
 
 // TABS
 document.querySelectorAll(".tab").forEach(btn=>{
-  btn.addEventListener("click", function(){
+  btn.addEventListener("click",function(){
     const t=this.dataset.tab;
     document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
     document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
@@ -339,10 +364,10 @@ document.querySelectorAll(".tab").forEach(btn=>{
 });
 
 function renderDash(){
-  const total=GER?Object.values(VENDAS).reduce((s,v)=>s+v.v,0):tFunc(UA.u);
+  const total=GER?tTotal():tFunc(UA.u);
   const idx=pidx(total),pct=PATS[idx].pct,com=total*pct/100;
   const prog=Math.min(100,(total/META)*100);
-  setMes();
+  atualizarMesLabel();
   document.getElementById("d-total").textContent=fmt(total);
   document.getElementById("d-pct").textContent=prog.toFixed(1)+"%";
   document.getElementById("d-barra").style.width=prog+"%";
@@ -360,7 +385,10 @@ function renderDash(){
 }
 
 function renderGraf(){
-  const vendas=GER?Object.values(VENDAS):Object.values(VENDAS).filter(v=>v.u===UA.u);
+  const mk=mesKey();
+  const vendas=GER
+    ?Object.values(VENDAS).filter(v=>v.d&&v.d.startsWith(mk))
+    :Object.values(VENDAS).filter(v=>v.u===UA.u&&v.d&&v.d.startsWith(mk));
   const pd={};
   vendas.forEach(v=>{pd[v.d]=(pd[v.d]||0)+v.v;});
   const dias=Object.keys(pd).sort();
@@ -378,7 +406,7 @@ function renderGraf(){
 }
 
 function renderTabela(idx){
-  if(idx===undefined){const t=GER?Object.values(VENDAS).reduce((s,v)=>s+v.v,0):tFunc(UA.u);idx=pidx(t);}
+  if(idx===undefined){const t=GER?tTotal():tFunc(UA.u);idx=pidx(t);}
   const lims=[30000,35000,40000,45000,50000,55000,60000];
   const tb=document.getElementById("tb-pat");
   if(!tb)return; tb.innerHTML="";
@@ -392,7 +420,7 @@ function renderTabela(idx){
 }
 
 function renderGer(){
-  renderFuncSel(); renderHist(); renderFuncs();
+  renderFuncSel();renderHist();renderFuncs();
   document.getElementById("g-dia").value=new Date().toISOString().split("T")[0];
 }
 
@@ -409,7 +437,7 @@ function renderHist(){
   if(!vs.length){el.innerHTML='<div class="empty">Nenhuma venda lançada ainda.</div>';return;}
   vs.forEach(([k,v])=>{
     const p=v.d.split("-"),u=USERS[v.u],nm=u?u.nome:v.u;
-    const div=document.createElement("div"); div.className="hi";
+    const div=document.createElement("div");div.className="hi";
     div.innerHTML=`<div><div class="hi-val">${fmt(v.v)}</div><div class="hi-dia">${nm} · ${p[2]}/${p[1]}/${p[0]}</div></div><button class="xbtn" data-key="${k}">✕</button>`;
     el.appendChild(div);
   });
@@ -422,7 +450,7 @@ function renderFuncs(){
   const entries=Object.entries(USERS);
   if(!entries.length){el.innerHTML='<div class="empty">Nenhum funcionário cadastrado ainda.</div>';return;}
   entries.forEach(([k,u])=>{
-    const div=document.createElement("div"); div.className="fi";
+    const div=document.createElement("div");div.className="fi";
     div.innerHTML=`<div class="fav">${u.nome.charAt(0).toUpperCase()}</div><div style="flex:1"><div class="fnome">${u.nome}</div><div class="fusr">@${u.u}</div></div><div class="fbtns"><button class="fedit" data-key="${k}">✏️ Editar</button><button class="fdel" data-key="${k}">✕</button></div>`;
     el.appendChild(div);
   });
@@ -430,7 +458,7 @@ function renderFuncs(){
   el.querySelectorAll(".fdel").forEach(b=>b.addEventListener("click",function(){if(confirm("Remover este funcionário?"))db.ref("users/"+this.dataset.key).remove();}));
 }
 
-document.getElementById("btn-add-venda").addEventListener("click", function(){
+document.getElementById("btn-add-venda").addEventListener("click",function(){
   const fu=document.getElementById("g-sel").value;
   const d=document.getElementById("g-dia").value;
   const v=parseFloat(document.getElementById("g-val").value);
@@ -440,12 +468,12 @@ document.getElementById("btn-add-venda").addEventListener("click", function(){
   m.className="ok";m.textContent="Salvando...";
   db.ref("vendas/v_"+Date.now()).set({u:fu,d,v}).then(()=>{
     document.getElementById("g-val").value="";
-    m.textContent="✓ Venda salva na nuvem!";
+    m.textContent="✓ Venda salva!";
     setTimeout(()=>m.textContent="",3000);
   });
 });
 
-document.getElementById("btn-cadastrar").addEventListener("click", function(){
+document.getElementById("btn-cadastrar").addEventListener("click",function(){
   const nome=document.getElementById("g-nome").value.trim();
   const usu=document.getElementById("g-usu").value.trim().toLowerCase();
   const sen=document.getElementById("g-senf").value;
@@ -458,13 +486,20 @@ document.getElementById("btn-cadastrar").addEventListener("click", function(){
     document.getElementById("g-nome").value="";
     document.getElementById("g-usu").value="";
     document.getElementById("g-senf").value="";
-    m.textContent="✓ Funcionário cadastrado na nuvem!";
+    m.textContent="✓ Funcionário cadastrado!";
     setTimeout(()=>m.textContent="",3000);
   });
 });
 
-document.getElementById("btn-zerar").addEventListener("click", function(){
-  if(confirm("Zerar todas as vendas do mês?")) db.ref("vendas").remove();
+document.getElementById("btn-zerar").addEventListener("click",function(){
+  if(confirm("Zerar todas as vendas do mês "+MESES[mesSel]+" "+anoSel+"?"))
+    db.ref("vendas").once("value").then(snap=>{
+      const all=snap.val()||{};
+      const mk=mesKey();
+      const updates={};
+      Object.keys(all).forEach(k=>{if(all[k].d&&all[k].d.startsWith(mk))updates["vendas/"+k]=null;});
+      db.ref().update(updates);
+    });
 });
 
 function abrirEdit(k){
@@ -477,7 +512,7 @@ function abrirEdit(k){
   document.getElementById("modal-edit").classList.add("open");
 }
 document.getElementById("btn-fechar-modal").addEventListener("click",()=>document.getElementById("modal-edit").classList.remove("open"));
-document.getElementById("btn-salvar-edit").addEventListener("click", function(){
+document.getElementById("btn-salvar-edit").addEventListener("click",function(){
   const k=document.getElementById("edit-key").value;
   const nome=document.getElementById("edit-nome").value.trim();
   const usu=document.getElementById("edit-usu").value.trim().toLowerCase();
