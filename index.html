@@ -185,7 +185,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
     <div class="card" style="border-left:4px solid var(--marrom);">
       <div class="card-lbl">Total da loja no mês</div>
       <div class="v-big" id="d-total-loja">R$ 0,00</div>
-      <div class="v-sub" id="d-meta-sub">Meta: R$ 60.000,00</div>
+      <div class="v-sub" id="d-meta-sub">Meta: R$ 65.000,00</div>
     </div>
     <div class="prog-row"><span>Progresso da meta da loja</span><span id="d-pct">0%</span></div>
     <div class="prog-bg"><div class="prog-fill" id="d-barra" style="width:0%"></div></div>
@@ -342,13 +342,12 @@ firebase.initializeApp({
 const db = firebase.database();
 
 const SENHA_GER = "emporio123";
-const META = 60000;
+const META = 65000;
 const PATS = [
-  {ate:30000,pct:0},{ate:35000,pct:1.5},{ate:40000,pct:1.6},
-  {ate:45000,pct:1.7},{ate:50000,pct:1.8},{ate:55000,pct:1.9},
-  {ate:Infinity,pct:2.0}
+  {ate:50000,pct:0},{ate:58000,pct:1.5},{ate:65000,pct:2.2},
+  {ate:Infinity,pct:2.8}
 ];
-const PAT_LABELS = ["Até R$ 30.000","Até R$ 35.000","Até R$ 40.000","Até R$ 45.000","Até R$ 50.000","Até R$ 55.000","Acima de R$ 55.000"];
+const PAT_LABELS = ["Até R$ 50.000","R$ 50.000 a R$ 58.000","R$ 58.000 a R$ 65.000","Acima de R$ 65.000"];
 const MOTIVS = [
   "💪 Cada venda conta! Você está construindo algo incrível.",
   "🌟 Acredite no seu potencial — você nasceu para vender!",
@@ -367,15 +366,10 @@ let anoSel = new Date().getFullYear();
 
 function fmt(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
 function pidx(t){
-  // Patamar = faixa que o total JÁ ATINGIU (ex: 38.515 atingiu 35.000 mas não 40.000 → idx 1 = 1,50%)
-  if(t<30000)return 0;  // abaixo de 30k = 0%
-  if(t<35000)return 0;  // atingiu 30k mas não 35k = 0%
-  if(t<40000)return 1;  // atingiu 35k mas não 40k = 1,50%
-  if(t<45000)return 2;  // atingiu 40k mas não 45k = 1,60%
-  if(t<50000)return 3;  // atingiu 45k mas não 50k = 1,70%
-  if(t<55000)return 4;  // atingiu 50k mas não 55k = 1,80%
-  if(t<60000)return 5;  // atingiu 55k mas não 60k = 1,90%
-  return 6;             // atingiu 60k+ = 2,00%
+  if(t<50000)return 0;  // abaixo de 50k = 0%
+  if(t<58000)return 1;  // 50k a 58k = 1,50%
+  if(t<65000)return 2;  // 58k a 65k = 2,20%
+  return 3;             // acima de 65k = 2,80%
 }
 function setSS(st,txt){
   const d=document.getElementById("sync-dot"),s=document.getElementById("sync-txt");
@@ -578,7 +572,7 @@ function renderGraf(){
 
 function renderTabela(idx){
   if(idx===undefined){idx=pidx(tTotal());} // sempre pelo total da loja
-  const lims=[34999,39999,44999,49999,54999,59999,65000];
+  const lims=[49999,57999,64999,70000];
   const tb=document.getElementById("tb-pat");
   if(!tb)return; tb.innerHTML="";
   PATS.forEach((p,i)=>{
