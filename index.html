@@ -252,7 +252,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
     <button class="tab" data-tab="stats">📅 Estatísticas</button>
     <button class="tab" data-tab="pata">💰 Patamares</button>
     <button class="tab" id="tab-ger" data-tab="ger" style="display:none">⚙️ Gerente</button>
-    <button class="tab" id="tab-fin" data-tab="fin" style="display:none">💰 Financeiro</button>
+    <button class="tab" id="tab-fin" data-tab="fin" style="display:none">📈 Financeiro</button>
   </div>
 
   <div class="screen active" id="sc-dash">
@@ -737,6 +737,7 @@ document.querySelectorAll(".tab").forEach(btn=>{
     document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
     document.getElementById("sc-"+t).classList.add("active");
     this.classList.add("active");
+    window.scrollTo(0,0);
     if(t==="dash") renderDash();
     if(t==="equipe"){mesSel2=mesSel;anoSel2=anoSel;renderEquipe();}
     if(t==="stats"){mesSel3=mesSel;anoSel3=anoSel;renderStats();}
