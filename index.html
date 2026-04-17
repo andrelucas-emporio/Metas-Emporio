@@ -136,6 +136,88 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
 .modal h3{font-size:16px;font-weight:600;color:var(--marrom);margin-bottom:16px;}
 .minp{width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--bege2);font-size:14px;font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);margin-bottom:12px;-webkit-appearance:none;}
 .minp:focus{outline:none;border-color:var(--dourado);}
+/* ===== FINANCEIRO ===== */
+.fin-sub-tabs{display:flex;background:var(--bege);border-radius:10px;padding:3px;margin-bottom:14px;gap:3px;}
+.fin-sub-tab{flex:1;padding:8px 4px;border:none;background:transparent;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;border-radius:8px;transition:all 0.2s;}
+.fin-sub-tab.on{background:#fff;color:var(--marrom);box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+.fin-page{display:none;}
+.fin-page.on{display:block;}
+.fin-card{background:#fff;border-radius:14px;border:1px solid var(--bege2);padding:14px;margin-bottom:12px;}
+.fin-ct{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;}
+.fin-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--bege);}
+.fin-row:last-child{border-bottom:none;}
+.fin-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.fin-rn{flex:1;font-size:13px;color:var(--text);}
+.fin-rv{font-size:13px;font-weight:600;color:var(--marrom);white-space:nowrap;}
+.fin-rp{font-size:11px;color:var(--muted);width:42px;text-align:right;white-space:nowrap;}
+.fin-acts{display:flex;gap:4px;flex-shrink:0;}
+.fin-ib{background:none;border:none;cursor:pointer;font-size:13px;padding:2px 4px;border-radius:5px;}
+.fin-ib:hover{background:var(--bege2);}
+.fin-rtot{display:flex;align-items:center;gap:8px;padding:8px 0 2px;margin-top:4px;border-top:1px solid var(--bege2);}
+.fin-rtot-n{flex:1;font-size:12px;font-weight:700;color:var(--marrom);}
+.fin-bb-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.fin-bb{background:#fff;border-radius:12px;border:1px solid var(--bege2);padding:14px;}
+.fin-bb-full{grid-column:span 2;}
+.fin-bb-pct{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;}
+.fin-bb-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;}
+.fin-bb-val{font-size:12px;color:var(--muted);margin-top:3px;}
+.fin-cr{color:#ef4444;}.fin-ca{color:var(--dourado);}.fin-cg{color:var(--verde);}
+.fin-seg-wrap{border-radius:8px;overflow:hidden;height:28px;display:flex;margin-bottom:8px;}
+.fin-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;overflow:hidden;transition:width 0.7s;}
+.fin-leg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
+.fin-li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
+.fin-ld{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.fin-al{border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;line-height:1.65;}
+.fin-al-g{background:#e8f5e3;border-left:3px solid var(--verde);color:var(--verde);}
+.fin-al-r{background:#fde8e8;border-left:3px solid #ef4444;color:#c0392b;}
+.fin-al-a{background:#fef9e7;border-left:3px solid var(--dourado);color:#7d5a0a;}
+.fin-al-b{background:#eaf1fb;border-left:3px solid #3b82f6;color:#1e40af;}
+.fin-al-p{background:#f3f0fd;border-left:3px solid #8b5cf6;color:#5b21b6;}
+.fin-add-btn{width:100%;padding:11px;border:1.5px dashed var(--bege2);border-radius:10px;background:transparent;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.fin-add-btn:hover{border-color:var(--dourado);color:var(--dourado);}
+.fin-add-form{display:none;background:var(--bege);border-radius:10px;padding:12px;margin-bottom:10px;}
+.fin-add-form.open{display:block;}
+.fin-type-pills{display:flex;gap:8px;margin-bottom:10px;}
+.fin-tp{flex:1;padding:8px;border:1.5px solid var(--bege2);border-radius:8px;background:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;text-align:center;color:var(--muted);}
+.fin-tp.fix{border-color:var(--dourado);color:var(--dourado);background:#fef9e7;}
+.fin-tp.var{border-color:#ef4444;color:#ef4444;background:#fde8e8;}
+.fin-ai{width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--bege2);font-family:"DM Sans",sans-serif;font-size:13px;background:#fff;color:var(--text);margin-bottom:8px;-webkit-appearance:none;}
+.fin-ai:focus{outline:none;border-color:var(--dourado);}
+.fin-aconf{width:100%;padding:10px;border-radius:8px;border:none;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:6px;background:var(--marrom);color:#fff;}
+.fin-acnl{width:100%;padding:8px;border-radius:8px;border:1.5px solid var(--bege2);background:transparent;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);}
+.fin-edit-wrap{background:#fff;border-radius:8px;padding:10px;margin:4px 0;}
+.fin-edit-row{display:flex;gap:8px;margin-bottom:8px;}
+.fin-ei{flex:1;padding:8px 10px;border-radius:8px;border:1.5px solid var(--dourado);font-family:"DM Sans",sans-serif;font-size:13px;background:var(--creme);color:var(--text);-webkit-appearance:none;}
+.fin-ebtns{display:flex;gap:6px;}
+.fin-bsave{flex:1;padding:8px;border-radius:8px;border:none;background:var(--verde);color:#fff;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
+.fin-bcnl{flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--bege2);background:#fff;color:var(--muted);font-family:"DM Sans",sans-serif;font-size:12px;font-weight:600;cursor:pointer;}
+.fin-g3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.fin-mc{background:#fff;border-radius:12px;border:1px solid var(--bege2);padding:12px;}
+.fin-mc-full{grid-column:span 2;}
+.fin-mc-l{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;}
+.fin-mc-v{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--marrom);}
+.fin-mc-s{font-size:10px;color:var(--muted);margin-top:2px;}
+.fin-pb-wrap{margin-bottom:10px;}
+.fin-pb-hdr{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;color:var(--muted);}
+.fin-pb-bg{height:6px;background:var(--bege2);border-radius:3px;}
+.fin-pb-fill{height:6px;border-radius:3px;transition:width 0.5s;}
+.fin-sl-row{display:flex;align-items:center;gap:10px;}
+.fin-sl-out{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:var(--marrom);white-space:nowrap;}
+.fin-tbl{width:100%;border-collapse:collapse;font-size:11px;}
+.fin-tbl th{background:var(--marrom);color:#fff;padding:7px 8px;text-align:right;font-size:10px;font-weight:600;}
+.fin-tbl th:first-child{text-align:left;}
+.fin-tbl td{padding:7px 8px;border-bottom:1px solid var(--bege2);text-align:right;color:var(--text);}
+.fin-tbl td:first-child{text-align:left;font-weight:600;}
+.fin-tbl tr:nth-child(even) td{background:var(--bege);}
+.fin-hint{font-size:11px;color:var(--muted);background:var(--bege2);border-radius:6px;padding:7px 10px;margin-bottom:8px;display:none;}
+.fin-hint.show{display:block;}
+.fin-fbadge{display:inline-flex;font-size:9px;padding:2px 6px;border-radius:20px;font-weight:700;margin-left:4px;vertical-align:middle;}
+.fin-badge-r{background:#fde8e8;color:#ef4444;}
+.fin-badge-a{background:#fef9e7;color:var(--dourado);}
+.fin-divider{border:none;border-top:1px solid var(--bege2);margin:10px 0;}
+.fin-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--marrom);border-radius:12px;padding:9px 18px;font-size:13px;font-weight:600;color:#fff;opacity:0;transition:all .28s;z-index:999;pointer-events:none;white-space:nowrap;}
+.fin-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.fin-loading{text-align:center;padding:24px;color:var(--muted);font-size:13px;}
 </style>
 </head>
 <body>
@@ -170,6 +252,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
     <button class="tab" data-tab="stats">📅 Estatísticas</button>
     <button class="tab" data-tab="pata">💰 Patamares</button>
     <button class="tab" id="tab-ger" data-tab="ger" style="display:none">⚙️ Gerente</button>
+    <button class="tab" id="tab-fin" data-tab="fin" style="display:none">💰 Financeiro</button>
   </div>
 
   <div class="screen active" id="sc-dash">
@@ -313,6 +396,160 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
   </div>
 </div>
 
+<!-- FINANCEIRO -->
+<div class="screen" id="sc-fin">
+  <div id="fin-loading" class="fin-loading">Carregando dados financeiros...</div>
+  <div id="fin-content" style="display:none">
+    <div class="fin-sub-tabs">
+      <button class="fin-sub-tab on" onclick="finGo(0)">🏪 Negócio</button>
+      <button class="fin-sub-tab" onclick="finGo(1)">🏠 Pessoal</button>
+      <button class="fin-sub-tab" onclick="finGo(2)">📊 Consolidado</button>
+    </div>
+
+    <!-- PAGE 0: NEGÓCIO -->
+    <div class="fin-page on" id="fin-p0">
+      <div class="fin-card">
+        <div class="fin-ct">Faturamento mensal de referência</div>
+        <div class="fin-sl-row">
+          <input type="range" min="20000" max="150000" step="1000" value="65000" id="fin-fatSlider"
+            oninput="finRenderFromSlider()" onchange="saveFinData()"
+            style="flex:1;accent-color:var(--dourado)">
+          <span class="fin-sl-out" id="fin-fatOut">R$65.000</span>
+        </div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-ct">Cada R$100 de faturamento</div>
+        <div class="fin-seg-wrap" id="fin-stackBar"></div>
+        <div class="fin-leg" id="fin-stackLeg"></div>
+      </div>
+      <div class="fin-bb-grid" id="fin-bigBlocks"></div>
+      <div class="fin-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="fin-ct" style="margin-bottom:0">Custos variáveis</span>
+          <span style="font-size:10px;color:var(--muted)">escalam com faturamento</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-dot" style="background:#ef4444"></span>
+          <span class="fin-rn">CMV — custo mercadorias (61,4%)</span>
+          <span class="fin-rv" id="fin-vCmvR"></span>
+          <span class="fin-rp fin-cr" id="fin-vCmvP"></span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-dot" style="background:#fb923c"></span>
+          <span class="fin-rn">Taxa maquininha (1,14%)</span>
+          <span class="fin-rv" id="fin-vMaqR"></span>
+          <span class="fin-rp" style="color:#fb923c" id="fin-vMaqP"></span>
+        </div>
+        <div id="fin-extraVarRows"></div>
+        <div class="fin-rtot">
+          <span class="fin-rtot-n">Total variável</span>
+          <span class="fin-rv" id="fin-vTotR"></span>
+          <span class="fin-rp fin-cr" id="fin-vTotP"></span>
+        </div>
+      </div>
+      <div class="fin-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="fin-ct" style="margin-bottom:0">Custos fixos</span>
+          <span style="font-size:10px;color:var(--muted)">✏️ editar &nbsp; 🗑 excluir</span>
+        </div>
+        <div id="fin-fixRows"></div>
+        <div class="fin-rtot">
+          <span class="fin-rtot-n">Total fixo</span>
+          <span class="fin-rv" id="fin-fTotR"></span>
+          <span class="fin-rp fin-ca" id="fin-fTotP"></span>
+        </div>
+      </div>
+      <button class="fin-add-btn" id="fin-btnAddNeg" onclick="finOpenAdd('neg')">＋ Adicionar custo do negócio</button>
+      <div class="fin-add-form" id="fin-addNeg">
+        <div class="fin-ct">Tipo de custo</div>
+        <div class="fin-type-pills">
+          <button class="fin-tp fix" id="fin-tpFix" onclick="finSetType('fix')">🟡 Fixo<br><span style="font-size:10px;font-weight:400">valor mensal fixo</span></button>
+          <button class="fin-tp" id="fin-tpVar" onclick="finSetType('var')">🔴 Variável<br><span style="font-size:10px;font-weight:400">% do faturamento</span></button>
+        </div>
+        <div class="fin-hint" id="fin-hintVar">Informe o valor que esse custo representa sobre R$60.000 de faturamento.</div>
+        <input class="fin-ai" id="fin-aN" placeholder="Nome do custo" maxlength="32">
+        <input class="fin-ai" id="fin-aV" type="number" min="0" step="0.01" placeholder="R$/mês">
+        <button class="fin-aconf" id="fin-aBtn" onclick="finAddNegCusto()">Adicionar como Custo Fixo</button>
+        <button class="fin-acnl" onclick="finCloseAdd('neg')">Cancelar</button>
+      </div>
+      <div class="fin-card">
+        <div class="fin-ct">Composição do faturamento</div>
+        <div style="position:relative;width:100%;height:200px"><canvas id="fin-donutNeg"></canvas></div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-ct">Sensibilidade ao faturamento</div>
+        <table class="fin-tbl"><thead><tr><th>Faturamento</th><th>Fixo %</th><th>Lucro op.</th><th>Margem</th></tr></thead><tbody id="fin-sensBody"></tbody></table>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px" id="fin-beLabel"></p>
+      </div>
+      <div id="fin-negInsights"></div>
+    </div>
+
+    <!-- PAGE 1: PESSOAL -->
+    <div class="fin-page" id="fin-p1">
+      <div id="fin-pesBanner"></div>
+      <div class="fin-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="fin-ct" style="margin-bottom:0">Custos pessoais fixos</span>
+          <span style="font-size:10px;color:var(--muted)">✏️ editar &nbsp; 🗑 excluir</span>
+        </div>
+        <div id="fin-pesFixRows"></div>
+        <div class="fin-rtot">
+          <span class="fin-rtot-n">Total fixo pessoal</span>
+          <span class="fin-rv" id="fin-pfTotR"></span>
+          <span class="fin-rp fin-cr" id="fin-pfTotP"></span>
+        </div>
+      </div>
+      <div class="fin-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="fin-ct" style="margin-bottom:0">Custos pessoais variáveis</span>
+          <span style="font-size:10px;color:var(--muted)">oscilam todo mês</span>
+        </div>
+        <div id="fin-pesVarRows"></div>
+        <div class="fin-rtot">
+          <span class="fin-rtot-n">Total variável pessoal</span>
+          <span class="fin-rv" id="fin-pvTotR"></span>
+          <span class="fin-rp" style="color:#fb923c" id="fin-pvTotP"></span>
+        </div>
+      </div>
+      <button class="fin-add-btn" id="fin-btnAddPes" onclick="finOpenAdd('pes')">＋ Adicionar custo pessoal</button>
+      <div class="fin-add-form" id="fin-addPes">
+        <div class="fin-ct">Tipo de custo pessoal</div>
+        <div class="fin-type-pills">
+          <button class="fin-tp fix" id="fin-tpPesFix" onclick="finSetPesType('fix')">🟡 Fixo<br><span style="font-size:10px;font-weight:400">todo mês igual</span></button>
+          <button class="fin-tp" id="fin-tpPesVar" onclick="finSetPesType('var')">🔴 Variável<br><span style="font-size:10px;font-weight:400">muda todo mês</span></button>
+        </div>
+        <input class="fin-ai" id="fin-paN" placeholder="Nome (ex: Aluguel, Mercado)" maxlength="32">
+        <input class="fin-ai" id="fin-paV" type="number" min="0" step="0.01" placeholder="R$ valor">
+        <button class="fin-aconf" id="fin-pBtn" onclick="finAddPesCusto()">Adicionar custo pessoal fixo</button>
+        <button class="fin-acnl" onclick="finCloseAdd('pes')">Cancelar</button>
+      </div>
+      <div class="fin-card">
+        <div class="fin-ct">Composição dos gastos pessoais</div>
+        <div style="position:relative;width:100%;height:200px"><canvas id="fin-donutPes"></canvas></div>
+      </div>
+      <div id="fin-pesInsights"></div>
+    </div>
+
+    <!-- PAGE 2: CONSOLIDADO -->
+    <div class="fin-page" id="fin-p2">
+      <div id="fin-consResumo"></div>
+      <div class="fin-card">
+        <div class="fin-ct">Fluxo — lucro do negócio → vida pessoal</div>
+        <div id="fin-fluxo"></div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-ct">Alertas e recomendações</div>
+        <div id="fin-consAlertas"></div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-ct">Peso de cada gasto pessoal no lucro</div>
+        <div id="fin-metasPes"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fin-toast" id="fin-toast"></div>
+</div>
+
 <div class="modal-bg" id="modal-edit">
   <div class="modal">
     <h3>Editar funcionário</h3>
@@ -448,6 +685,7 @@ function entrar(){
   document.getElementById("uav").textContent=UA.nome.charAt(0).toUpperCase();
   document.getElementById("unome").textContent=UA.nome.split(" ")[0];
   document.getElementById("tab-ger").style.display=GER?"block":"none";
+  document.getElementById("tab-fin").style.display=GER?"block":"none";
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.querySelector(".tab").classList.add("active");
@@ -504,6 +742,7 @@ document.querySelectorAll(".tab").forEach(btn=>{
     if(t==="stats"){mesSel3=mesSel;anoSel3=anoSel;renderStats();}
     if(t==="pata") renderTabela();
     if(t==="ger") renderGer();
+    if(t==="fin") loadFinData();
   });
 });
 
@@ -1108,6 +1347,391 @@ function renderFuncDash(key){
               x:{ticks:{autoSkip:false,maxRotation:45},grid:{display:false}}}}
   });
 }
+
+// ===================================================================
+// MÓDULO FINANCEIRO
+// ===================================================================
+const FIN_CMV = 0.614, FIN_MAQ = 0.0114;
+const FIN_PAL_F = ['#a78bfa','#60a5fa','#2dd4a0','#fbbf24','#f472b6','#38bdf8','#fb923c','#34d399','#94a3b8','#facc15'];
+const FIN_PAL_V = ['#fca5a5','#fdba74','#fcd34d','#f9a8d4','#d8b4fe'];
+const FIN_PAL_P = ['#818cf8','#6ee7b7','#fde68a','#f9a8d4','#7dd3fc','#fbbf24','#34d399','#c084fc','#fdba74','#a5f3fc'];
+
+let finFAT = 65000;
+let finFixCosts = [], finVarCosts = [], finPesFixCosts = [], finPesVarCosts = [];
+let finNid = 1001, finEditId = null, finEditCtx = null;
+let finAddType = 'fix', finAddPesType = 'fix';
+let finDonutNeg = null, finDonutPes = null;
+let finLoaded = false;
+
+const finR  = v => 'R$' + Math.round(v).toLocaleString('pt-BR');
+const finP  = v => v.toFixed(1) + '%';
+const finCF = (i,p) => p[i % p.length];
+const finTotFix  = () => finFixCosts.reduce((a,c)=>a+c.v,0);
+const finTotVar  = () => finVarCosts.reduce((a,c)=>a+(c.v/60000)*finFAT,0);
+const finTotPFix = () => finPesFixCosts.reduce((a,c)=>a+c.v,0);
+const finTotPVar = () => finPesVarCosts.reduce((a,c)=>a+c.v,0);
+const finTotPes  = () => finTotPFix() + finTotPVar();
+
+function finToast(msg) {
+  const el = document.getElementById('fin-toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function finGo(i) {
+  document.querySelectorAll('.fin-sub-tab').forEach((t,j) => t.classList.toggle('on', i===j));
+  document.querySelectorAll('.fin-page').forEach((p,j) => p.classList.toggle('on', i===j));
+  renderFin();
+}
+
+// ── Firebase ────────────────────────────────────────────────────────
+function loadFinData() {
+  if (finLoaded) { renderFin(); return; }
+  document.getElementById('fin-loading').style.display = 'block';
+  document.getElementById('fin-content').style.display = 'none';
+  db.ref('financeiro').once('value', snap => {
+    const d = snap.val() || {};
+    finFAT = d.fat || 65000;
+    const toArr = obj => obj ? Object.values(obj) : [];
+    const hasData = k => toArr(d[k]).length > 0;
+    finFixCosts    = hasData('fixCosts')    ? toArr(d.fixCosts)    : [{id:1,n:'Funcionário',v:3574},{id:2,n:'Aluguel',v:1400},{id:3,n:'Energia',v:550},{id:4,n:'Embalagens',v:300},{id:5,n:'Contador',v:300},{id:6,n:'DAS MEI',v:160},{id:7,n:'Sistema PDV',v:119},{id:8,n:'Internet',v:80},{id:9,n:'Limpeza',v:80},{id:10,n:'Água',v:60}];
+    finVarCosts    = toArr(d.varCosts);
+    finPesFixCosts = hasData('pesFixCosts') ? toArr(d.pesFixCosts) : [{id:101,n:'Moradia',v:800},{id:102,n:'Alimentação',v:1200},{id:103,n:'Transporte',v:400},{id:104,n:'Saúde',v:300}];
+    finPesVarCosts = hasData('pesVarCosts') ? toArr(d.pesVarCosts) : [{id:201,n:'Lazer',v:300},{id:202,n:'Vestuário',v:200}];
+    const allIds = [...finFixCosts,...finVarCosts,...finPesFixCosts,...finPesVarCosts].map(c=>c.id);
+    finNid = allIds.length ? Math.max(...allIds) + 1 : 1001;
+    const sl = document.getElementById('fin-fatSlider');
+    if (sl) { sl.value = finFAT; document.getElementById('fin-fatOut').textContent = 'R$' + finFAT.toLocaleString('pt-BR'); }
+    finLoaded = true;
+    document.getElementById('fin-loading').style.display = 'none';
+    document.getElementById('fin-content').style.display = 'block';
+    renderFin();
+  });
+}
+
+function saveFinData() {
+  const toObj = arr => arr.reduce((o,c) => { o['k'+c.id]={id:c.id,n:c.n,v:c.v}; return o; }, {});
+  db.ref('financeiro').set({
+    fat: finFAT,
+    fixCosts:    toObj(finFixCosts),
+    varCosts:    toObj(finVarCosts),
+    pesFixCosts: toObj(finPesFixCosts),
+    pesVarCosts: toObj(finPesVarCosts),
+  });
+}
+
+// ── Master render ───────────────────────────────────────────────────
+function renderFin() {
+  if (!finLoaded) return;
+  finRenderNeg();
+  finRenderPes();
+  finRenderCons();
+}
+
+function finRenderFromSlider() {
+  finFAT = parseInt(document.getElementById('fin-fatSlider').value);
+  document.getElementById('fin-fatOut').textContent = 'R$' + finFAT.toLocaleString('pt-BR');
+  renderFin();
+}
+
+// ── Negócio ─────────────────────────────────────────────────────────
+function finRenderNeg() {
+  const cmv=finFAT*FIN_CMV, maq=finFAT*FIN_MAQ, ev=finTotVar();
+  const varT=cmv+maq+ev, fixT=finTotFix(), luc=finFAT-varT-fixT;
+  const varP=(varT/finFAT)*100, fixP=(fixT/finFAT)*100, lucP=(luc/finFAT)*100;
+
+  document.getElementById('fin-vCmvR').textContent=finR(cmv);
+  document.getElementById('fin-vCmvP').textContent=finP(FIN_CMV*100);
+  document.getElementById('fin-vMaqR').textContent=finR(maq);
+  document.getElementById('fin-vMaqP').textContent=finP(FIN_MAQ*100);
+
+  document.getElementById('fin-extraVarRows').innerHTML = finVarCosts.map((c,i)=>{
+    const val=(c.v/60000)*finFAT, pct=(val/finFAT)*100, clr=finCF(i,FIN_PAL_V);
+    if(finEditId===c.id&&finEditCtx==='var') return finEditHTML(c.id,c.n,c.v,'R$ sobre base 60k');
+    return `<div class="fin-row"><span class="fin-dot" style="background:${clr}"></span>
+      <span class="fin-rn">${c.n}<span class="fin-fbadge fin-badge-r">var</span></span>
+      <span class="fin-rv">${finR(val)}</span><span class="fin-rp" style="color:${clr}">${finP(pct)}</span>
+      <div class="fin-acts"><button class="fin-ib" onclick="finStartEdit(${c.id},'var')">✏️</button><button class="fin-ib" onclick="finDelCost(${c.id},'var')">🗑️</button></div></div>`;
+  }).join('');
+
+  document.getElementById('fin-vTotR').textContent=finR(varT);
+  document.getElementById('fin-vTotP').textContent=finP(varP);
+
+  document.getElementById('fin-fixRows').innerHTML = finFixCosts.map((c,i)=>{
+    const pct=(c.v/finFAT)*100, clr=finCF(i,FIN_PAL_F);
+    if(finEditId===c.id&&finEditCtx==='fix') return finEditHTML(c.id,c.n,c.v,'R$/mês');
+    return `<div class="fin-row"><span class="fin-dot" style="background:${clr}"></span>
+      <span class="fin-rn">${c.n}</span>
+      <span class="fin-rv">${finR(c.v)}</span><span class="fin-rp" style="color:${clr}">${finP(pct)}</span>
+      <div class="fin-acts"><button class="fin-ib" onclick="finStartEdit(${c.id},'fix')">✏️</button><button class="fin-ib" onclick="finDelCost(${c.id},'fix')">🗑️</button></div></div>`;
+  }).join('') || '<div style="padding:10px;text-align:center;color:var(--muted);font-size:13px">Nenhum custo fixo.</div>';
+
+  document.getElementById('fin-fTotR').textContent=finR(fixT);
+  document.getElementById('fin-fTotP').textContent=finP(fixP);
+
+  const lc=luc>=0?'var(--verde)':'#ef4444';
+  document.getElementById('fin-bigBlocks').innerHTML=
+    `<div class="fin-bb"><div class="fin-bb-lbl fin-cr">Custo Variável</div><div class="fin-bb-pct fin-cr">${finP(varP)}</div><div class="fin-bb-val">${finR(varT)}/mês</div></div>
+     <div class="fin-bb"><div class="fin-bb-lbl fin-ca">Custo Fixo</div><div class="fin-bb-pct fin-ca">${finP(fixP)}</div><div class="fin-bb-val">${finR(fixT)}/mês</div></div>
+     <div class="fin-bb fin-bb-full"><div style="display:flex;justify-content:space-between;align-items:center">
+       <div><div class="fin-bb-lbl" style="color:${lc}">Lucro Operacional</div><div class="fin-bb-val">após todos os custos</div></div>
+       <div style="text-align:right"><div class="fin-bb-pct" style="color:${lc};font-size:28px">${finP(Math.max(0,lucP))}</div><div class="fin-bb-val">${finR(luc)}/mês</div></div>
+     </div></div>`;
+
+  let h='',lh='';
+  h+=`<div class="fin-seg" style="width:${finP(FIN_CMV*100)};background:#ef4444"><span>CMV</span></div>`;
+  h+=`<div class="fin-seg" style="width:${finP(FIN_MAQ*100)};background:#fb923c"></div>`;
+  finVarCosts.forEach((c,i)=>{const p=((c.v/60000)*finFAT/finFAT)*100;h+=`<div class="fin-seg" style="width:${finP(p)};background:${finCF(i,FIN_PAL_V)}"></div>`;});
+  finFixCosts.forEach((c,i)=>{const p=(c.v/finFAT)*100;h+=`<div class="fin-seg" style="width:${finP(p)};background:${finCF(i,FIN_PAL_F)}"></div>`;});
+  if(luc>0) h+=`<div class="fin-seg" style="width:${finP(lucP)};background:#2dd4a0"><span>Lucro</span></div>`;
+  document.getElementById('fin-stackBar').innerHTML=h;
+
+  lh+=`<span class="fin-li"><span class="fin-ld" style="background:#ef4444"></span>CMV 61,4%</span>`;
+  lh+=`<span class="fin-li"><span class="fin-ld" style="background:#fb923c"></span>Maquininha 1,1%</span>`;
+  finFixCosts.slice(0,5).forEach((c,i)=>lh+=`<span class="fin-li"><span class="fin-ld" style="background:${finCF(i,FIN_PAL_F)}"></span>${c.n}</span>`);
+  if(finFixCosts.length>5) lh+=`<span class="fin-li"><span class="fin-ld" style="background:#64748b"></span>+${finFixCosts.length-5} fixos</span>`;
+  lh+=`<span class="fin-li"><span class="fin-ld" style="background:#2dd4a0"></span>Lucro ${finP(Math.max(0,lucP))}</span>`;
+  document.getElementById('fin-stackLeg').innerHTML=lh;
+
+  const dlbls=['CMV','Maquininha',...finVarCosts.map(c=>c.n),...finFixCosts.map(c=>c.n)];
+  const ddata=[cmv,maq,...finVarCosts.map(c=>(c.v/60000)*finFAT),...finFixCosts.map(c=>c.v)];
+  const dclr=['#ef4444','#fb923c',...finVarCosts.map((_,i)=>finCF(i,FIN_PAL_V)),...finFixCosts.map((_,i)=>finCF(i,FIN_PAL_F))];
+  if(luc>0){dlbls.push('Lucro');ddata.push(luc);dclr.push('#2dd4a0');}
+  if(finDonutNeg) finDonutNeg.destroy();
+  finDonutNeg=new Chart(document.getElementById('fin-donutNeg'),{type:'doughnut',
+    data:{labels:dlbls,datasets:[{data:ddata,backgroundColor:dclr,borderWidth:2,borderColor:'#fdf7ee'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+      plugins:{legend:{position:'bottom',labels:{font:{family:'DM Sans',size:10},color:'#7a6245',boxWidth:9,padding:6}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${((ctx.raw/finFAT)*100).toFixed(1)}% — ${finR(ctx.raw)}`}}}}});
+
+  const varFrac=FIN_CMV+FIN_MAQ+finVarCosts.reduce((a,c)=>a+c.v/60000,0);
+  document.getElementById('fin-sensBody').innerHTML=[20000,35000,50000,65000,80000,100000].map(f=>{
+    const sv=finVarCosts.reduce((a,c)=>a+(c.v/60000)*f,0);
+    const l=f-f*FIN_CMV-f*FIN_MAQ-sv-finTotFix();
+    const fp=finP(finTotFix()/f*100),lp=finP(l/f*100),isMeta=f===65000;
+    return `<tr${isMeta?' style="font-weight:700;color:var(--verde)"':''}>
+      <td>${finR(f)}${isMeta?' ◄':''}</td>
+      <td style="color:${l<0?'#ef4444':f<=40000?'var(--dourado)':'var(--verde)'}">${fp}</td>
+      <td style="color:${l<0?'#ef4444':'var(--verde)'}">${finR(l)}</td><td>${lp}</td></tr>`;
+  }).join('');
+  document.getElementById('fin-beLabel').textContent=`Break-even: ${finR(finTotFix()/(1-varFrac))}/mês`;
+
+  const top=[...finFixCosts].sort((a,b)=>b.v-a.v)[0];
+  const inc=Math.round(10000*(1-FIN_CMV-FIN_MAQ));
+  document.getElementById('fin-negInsights').innerHTML=
+    `<div class="fin-al fin-al-${fixP<12?'g':fixP<18?'a':'r'}">Custo fixo em ${finP(fixP)} do faturamento — ${fixP<12?'estrutura saudável ✓':fixP<18?'atenção: acima do ideal (< 12%)':'alto! Revisar urgente'}</div>
+     ${top?`<div class="fin-al fin-al-a">"${top.n}" é o maior custo fixo (${finR(top.v)}/mês · ${(top.v/Math.max(finTotFix(),1)*100).toFixed(0)}% do total fixo).</div>`:''}
+     <div class="fin-al fin-al-b">Cada R$10.000 a mais no faturamento gera ~${finR(inc)} de lucro extra.</div>
+     ${luc<0?`<div class="fin-al fin-al-r">⚠️ Com esse faturamento o negócio opera no prejuízo de ${finR(Math.abs(luc))}/mês.</div>`:''}`;
+}
+
+// ── Pessoal ─────────────────────────────────────────────────────────
+function finRenderPes() {
+  const pfT=finTotPFix(),pvT=finTotPVar(),pesT=pfT+pvT;
+  const lucOp=finFAT-finFAT*FIN_CMV-finFAT*FIN_MAQ-finTotVar()-finTotFix();
+  const sobra=lucOp-pesT;
+  const bColor=sobra>=0?'rgba(45,212,160,.1)':'rgba(239,68,68,.1)';
+  const bBorder=sobra>=0?'rgba(45,212,160,.3)':'rgba(239,68,68,.3)';
+  const bText=sobra>=0?'var(--verde)':'#ef4444';
+
+  document.getElementById('fin-pesBanner').innerHTML=`
+    <div style="background:${bColor};border:1px solid ${bBorder};border-radius:14px;padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:${bText}">Total gastos pessoais</div>
+          <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:${bText}">${finR(pesT)}/mês</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">Fixo: ${finR(pfT)} · Variável: ${finR(pvT)}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Lucro operacional</div>
+          <div style="font-size:20px;font-weight:700;color:var(--verde)">${finR(lucOp)}</div>
+          <div style="font-size:11px;color:${bText};margin-top:2px">${sobra>=0?'sobra '+finR(sobra):'falta '+finR(Math.abs(sobra))}</div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('fin-pesFixRows').innerHTML=finPesFixCosts.map((c,i)=>{
+    const pct=(c.v/Math.max(pesT,1)*100),clr=finCF(i,FIN_PAL_P);
+    if(finEditId===c.id&&finEditCtx==='pesFix') return finEditHTML(c.id,c.n,c.v,'R$/mês');
+    return `<div class="fin-row"><span class="fin-dot" style="background:${clr}"></span>
+      <span class="fin-rn">${c.n}</span><span class="fin-rv">${finR(c.v)}</span>
+      <span class="fin-rp" style="color:${clr}">${finP(pct)}</span>
+      <div class="fin-acts"><button class="fin-ib" onclick="finStartEdit(${c.id},'pesFix')">✏️</button><button class="fin-ib" onclick="finDelCost(${c.id},'pesFix')">🗑️</button></div></div>`;
+  }).join('')||'<div style="padding:10px;text-align:center;color:var(--muted);font-size:13px">Nenhum custo fixo pessoal.</div>';
+  document.getElementById('fin-pfTotR').textContent=finR(pfT);
+  document.getElementById('fin-pfTotP').textContent=finP(pfT/Math.max(pesT,1)*100);
+
+  document.getElementById('fin-pesVarRows').innerHTML=finPesVarCosts.map((c,i)=>{
+    const pct=(c.v/Math.max(pesT,1)*100),clr=finCF(i+5,FIN_PAL_P);
+    if(finEditId===c.id&&finEditCtx==='pesVar') return finEditHTML(c.id,c.n,c.v,'R$ estimado');
+    return `<div class="fin-row"><span class="fin-dot" style="background:${clr}"></span>
+      <span class="fin-rn">${c.n}<span class="fin-fbadge fin-badge-a">variável</span></span><span class="fin-rv">${finR(c.v)}</span>
+      <span class="fin-rp" style="color:${clr}">${finP(pct)}</span>
+      <div class="fin-acts"><button class="fin-ib" onclick="finStartEdit(${c.id},'pesVar')">✏️</button><button class="fin-ib" onclick="finDelCost(${c.id},'pesVar')">🗑️</button></div></div>`;
+  }).join('')||'<div style="padding:10px;text-align:center;color:var(--muted);font-size:13px">Nenhum custo variável pessoal.</div>';
+  document.getElementById('fin-pvTotR').textContent=finR(pvT);
+  document.getElementById('fin-pvTotP').textContent=finP(pvT/Math.max(pesT,1)*100);
+
+  const pLabels=[...finPesFixCosts.map(c=>c.n),...finPesVarCosts.map(c=>c.n+'(var)')];
+  const pData=[...finPesFixCosts.map(c=>c.v),...finPesVarCosts.map(c=>c.v)];
+  const pClr=[...finPesFixCosts.map((_,i)=>finCF(i,FIN_PAL_P)),...finPesVarCosts.map((_,i)=>finCF(i+5,FIN_PAL_P))];
+  if(sobra>0){pLabels.push('Sobra/Reserva');pData.push(sobra);pClr.push('#2dd4a0');}
+  if(finDonutPes) finDonutPes.destroy();
+  if(pData.length) finDonutPes=new Chart(document.getElementById('fin-donutPes'),{type:'doughnut',
+    data:{labels:pLabels,datasets:[{data:pData,backgroundColor:pClr,borderWidth:2,borderColor:'#fdf7ee'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{legend:{position:'bottom',labels:{font:{family:'DM Sans',size:10},color:'#7a6245',boxWidth:9,padding:6}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${finR(ctx.raw)}`}}}}});
+
+  let ins='';
+  if(sobra<0) ins+=`<div class="fin-al fin-al-r">⚠️ Gastos pessoais (${finR(pesT)}) superam o lucro (${finR(lucOp)}) em ${finR(Math.abs(sobra))}.</div>`;
+  else if(sobra<lucOp*0.15) ins+=`<div class="fin-al fin-al-a">Sobra pequena (${finR(sobra)}). Qualquer queda no faturamento coloca os gastos em risco.</div>`;
+  else ins+=`<div class="fin-al fin-al-g">Saúde financeira boa: sobram ${finR(sobra)}/mês após cobrir todos os gastos pessoais.</div>`;
+  const topPes=[...finPesFixCosts,...finPesVarCosts].sort((a,b)=>b.v-a.v)[0];
+  if(topPes) ins+=`<div class="fin-al fin-al-b">"${topPes.n}" é o maior gasto pessoal (${finR(topPes.v)}/mês · ${finP(topPes.v/Math.max(pesT,1)*100)} do total).</div>`;
+  document.getElementById('fin-pesInsights').innerHTML=ins;
+}
+
+// ── Consolidado ─────────────────────────────────────────────────────
+function finRenderCons() {
+  const lucOp=finFAT-finFAT*FIN_CMV-finFAT*FIN_MAQ-finTotVar()-finTotFix();
+  const pfT=finTotPFix(),pvT=finTotPVar(),pesT=pfT+pvT,sobra=lucOp-pesT;
+  const sc=sobra>=0?'var(--verde)':'#ef4444';
+
+  document.getElementById('fin-consResumo').innerHTML=`
+    <div class="fin-g3">
+      <div class="fin-mc"><div class="fin-mc-l">Lucro operacional</div><div class="fin-mc-v fin-cg">${finR(lucOp)}</div><div class="fin-mc-s">do negócio</div></div>
+      <div class="fin-mc"><div class="fin-mc-l">Gastos pessoais</div><div class="fin-mc-v fin-cr">${finR(pesT)}</div><div class="fin-mc-s">fixo ${finR(pfT)} + var. ${finR(pvT)}</div></div>
+      <div class="fin-mc fin-mc-full"><div class="fin-mc-l">Sobra líquida</div><div class="fin-mc-v" style="color:${sc}">${finR(sobra)}</div><div class="fin-mc-s">${sobra>=0?'livre p/ reserva':'déficit'}</div></div>
+    </div>`;
+
+  const pesRows=[...finPesFixCosts,...finPesVarCosts].map(c=>{
+    const isVar=!!finPesVarCosts.find(x=>x.id===c.id);
+    return `<div class="fin-row" style="padding:5px 0">
+      <span class="fin-rn" style="font-size:12px">${c.n}${isVar?`<span class="fin-fbadge fin-badge-a">variável</span>`:''}</span>
+      <span class="fin-rv fin-cr">- ${finR(c.v)}</span></div>`;
+  }).join('');
+
+  document.getElementById('fin-fluxo').innerHTML=`
+    <div class="fin-row"><span class="fin-rn" style="color:var(--verde);font-weight:700">Lucro operacional</span><span class="fin-rv" style="color:var(--verde)">${finR(lucOp)}</span></div>
+    <hr class="fin-divider">
+    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:6px">(-) Gastos pessoais</div>
+    ${pesRows||'<div style="color:var(--muted);font-size:12px;padding:4px 0">Nenhum gasto pessoal cadastrado.</div>'}
+    <hr class="fin-divider">
+    <div style="background:${sobra>=0?'rgba(45,212,160,.07)':'rgba(239,68,68,.07)'};border:1px solid ${sobra>=0?'rgba(45,212,160,.2)':'rgba(239,68,68,.2)'};border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-weight:600;color:${sc};font-size:13px">Sobra líquida mensal</span>
+      <span style="font-weight:700;font-size:20px;color:${sc}">${finR(sobra)}</span>
+    </div>`;
+
+  let al='';
+  if(lucOp<=0) al+=`<div class="fin-al fin-al-r">🔴 Negócio operando no prejuízo (${finR(lucOp)}).</div>`;
+  else if(sobra<0) al+=`<div class="fin-al fin-al-r">🔴 Gastos pessoais (${finR(pesT)}) superam o lucro (${finR(lucOp)}) em ${finR(Math.abs(sobra))}.</div>`;
+  else if(sobra<lucOp*0.15) al+=`<div class="fin-al fin-al-a">⚠️ Sobra pequena: ${finR(sobra)} (${finP(sobra/lucOp*100)} do lucro).</div>`;
+  else al+=`<div class="fin-al fin-al-g">✓ Situação saudável: sobram ${finR(sobra)}/mês (${finP(sobra/lucOp*100)} do lucro).</div>`;
+  if(pesT>lucOp*0.6&&lucOp>0) al+=`<div class="fin-al fin-al-a">⚠️ Gastos pessoais consomem ${finP(pesT/lucOp*100)} do lucro. Ideal abaixo de 60%.</div>`;
+  const varFrac=FIN_CMV+FIN_MAQ+finVarCosts.reduce((a,c)=>a+c.v/60000,0);
+  const fatMin=(pesT+finTotFix())/(1-varFrac);
+  al+=`<div class="fin-al fin-al-b">📌 Faturamento mínimo para cobrir tudo: ${finR(Math.ceil(fatMin))}/mês.</div>`;
+  if(sobra>0){
+    const m=Math.ceil(finTotFix()*3/sobra);
+    al+=`<div class="fin-al fin-al-p">💡 Reserva de emergência (3× fixos = ${finR(finTotFix()*3)}) em ${m} ${m===1?'mês':'meses'}.</div>`;
+  }
+  document.getElementById('fin-consAlertas').innerHTML=al;
+
+  const itens=[...finPesFixCosts,...finPesVarCosts];
+  document.getElementById('fin-metasPes').innerHTML=itens.map(c=>{
+    const pd=(c.v/Math.max(pesT,1)*100),pl=(c.v/Math.max(lucOp,1)*100);
+    return `<div class="fin-pb-wrap">
+      <div class="fin-pb-hdr"><span>${c.n}</span><span>${finR(c.v)} · ${finP(pd)} dos gastos · ${finP(pl)} do lucro</span></div>
+      <div class="fin-pb-bg"><div class="fin-pb-fill" style="width:${Math.min(100,pd).toFixed(1)}%;background:${pd>=30?'#ef4444':pd>=15?'var(--dourado)':'var(--verde)'}"></div></div>
+    </div>`;
+  }).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Adicione custos pessoais.</div>';
+}
+
+// ── CRUD ────────────────────────────────────────────────────────────
+function finGetArr(ctx){if(ctx==='fix')return finFixCosts;if(ctx==='var')return finVarCosts;if(ctx==='pesFix')return finPesFixCosts;if(ctx==='pesVar')return finPesVarCosts;return[];}
+function finSetArr(ctx,arr){if(ctx==='fix')finFixCosts=arr;if(ctx==='var')finVarCosts=arr;if(ctx==='pesFix')finPesFixCosts=arr;if(ctx==='pesVar')finPesVarCosts=arr;}
+function finStartEdit(id,ctx){finEditId=id;finEditCtx=ctx;renderFin();setTimeout(()=>{const e=document.getElementById('fin-en'+id);if(e)e.focus();},30);}
+function finCancelEdit(){finEditId=null;finEditCtx=null;renderFin();}
+function finSaveEdit(id){
+  const n=(document.getElementById('fin-en'+id)||{}).value?.trim();
+  const v=parseFloat((document.getElementById('fin-ev'+id)||{}).value);
+  if(!n){finToast('Digite um nome');return;}
+  if(isNaN(v)||v<0){finToast('Valor inválido');return;}
+  const arr=finGetArr(finEditCtx),idx=arr.findIndex(c=>c.id===id);
+  if(idx>=0){arr[idx].n=n;arr[idx].v=v;}
+  finEditId=null;finEditCtx=null;renderFin();saveFinData();finToast('✓ Atualizado');
+}
+function finDelCost(id,ctx){
+  const arr=finGetArr(ctx),c=arr.find(x=>x.id===id);if(!c)return;
+  if(!confirm(`Excluir "${c.n}"?`))return;
+  finSetArr(ctx,arr.filter(x=>x.id!==id));
+  if(finEditId===id){finEditId=null;finEditCtx=null;}
+  renderFin();saveFinData();finToast('Removido');
+}
+function finEditHTML(id,name,val,placeholder){
+  return `<div class="fin-edit-wrap">
+    <div style="font-size:11px;color:var(--dourado);font-weight:600;margin-bottom:8px">Editando: ${name}</div>
+    <div class="fin-edit-row">
+      <input class="fin-ei" id="fin-en${id}" value="${name}" maxlength="32" placeholder="Nome">
+      <input class="fin-ei" id="fin-ev${id}" type="number" value="${val}" min="0" step="0.01" placeholder="${placeholder}">
+    </div>
+    <div class="fin-ebtns">
+      <button class="fin-bsave" onclick="finSaveEdit(${id})">Salvar</button>
+      <button class="fin-bcnl" onclick="finCancelEdit()">Cancelar</button>
+    </div></div>`;
+}
+
+// ── Add forms ────────────────────────────────────────────────────────
+function finOpenAdd(ctx){
+  const fId=ctx==='neg'?'fin-addNeg':'fin-addPes',bId=ctx==='neg'?'fin-btnAddNeg':'fin-btnAddPes';
+  document.getElementById(fId).classList.add('open');
+  document.getElementById(bId).style.display='none';
+  setTimeout(()=>document.getElementById(ctx==='neg'?'fin-aN':'fin-paN').focus(),30);
+}
+function finCloseAdd(ctx){
+  const fId=ctx==='neg'?'fin-addNeg':'fin-addPes',bId=ctx==='neg'?'fin-btnAddNeg':'fin-btnAddPes';
+  document.getElementById(fId).classList.remove('open');
+  document.getElementById(bId).style.display='flex';
+}
+function finSetType(t){
+  finAddType=t;
+  document.getElementById('fin-tpFix').className='fin-tp'+(t==='fix'?' fix':'');
+  document.getElementById('fin-tpVar').className='fin-tp'+(t==='var'?' var':'');
+  document.getElementById('fin-hintVar').classList.toggle('show',t==='var');
+  const btn=document.getElementById('fin-aBtn');
+  btn.textContent=t==='fix'?'Adicionar como Custo Fixo':'Adicionar como Custo Variável';
+  document.getElementById('fin-aV').placeholder=t==='fix'?'R$/mês':'R$ sobre base R$60k';
+}
+function finSetPesType(t){
+  finAddPesType=t;
+  document.getElementById('fin-tpPesFix').className='fin-tp'+(t==='fix'?' fix':'');
+  document.getElementById('fin-tpPesVar').className='fin-tp'+(t==='var'?' var':'');
+  document.getElementById('fin-pBtn').textContent=t==='fix'?'Adicionar custo pessoal fixo':'Adicionar custo pessoal variável';
+}
+function finAddNegCusto(){
+  const n=document.getElementById('fin-aN').value.trim();
+  const v=parseFloat(document.getElementById('fin-aV').value);
+  if(!n){finToast('Digite um nome');return;}
+  if(isNaN(v)||v<=0){finToast('Digite um valor');return;}
+  if(finAddType==='fix') finFixCosts.push({id:finNid++,n,v});
+  else finVarCosts.push({id:finNid++,n,v});
+  document.getElementById('fin-aN').value='';document.getElementById('fin-aV').value='';
+  finCloseAdd('neg');renderFin();saveFinData();finToast('✓ Custo adicionado');
+}
+function finAddPesCusto(){
+  const n=document.getElementById('fin-paN').value.trim();
+  const v=parseFloat(document.getElementById('fin-paV').value);
+  if(!n){finToast('Digite um nome');return;}
+  if(isNaN(v)||v<=0){finToast('Digite um valor');return;}
+  if(finAddPesType==='fix') finPesFixCosts.push({id:finNid++,n,v});
+  else finPesVarCosts.push({id:finNid++,n,v});
+  document.getElementById('fin-paN').value='';document.getElementById('fin-paV').value='';
+  finCloseAdd('pes');renderFin();saveFinData();finToast('✓ Custo pessoal adicionado');
+}
+// ===================================================================
 </script>
 </body>
 </html>
