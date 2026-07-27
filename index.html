@@ -25,7 +25,7 @@
   --bege:#16302c;        /* superfícies secundárias */
   --bege2:#20423c;       /* bordas / trilhos */
   --text:#eaf3f0;        /* texto principal claro */
-  --muted:#8fb0a8;       /* texto secundário */
+  --muted:#a9c7be;       /* texto secundário (clareado p/ contraste) */
   --card:#12241f;        /* fundo dos cards */
 }
 body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);min-height:100vh;}
@@ -175,7 +175,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--creme);color:var(--text);
 .fin-li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
 .fin-ld{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .fin-al{border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;line-height:1.65;}
-.fin-al-g{background:#e8f5e3;border-left:3px solid var(--verde);color:var(--verde);}
+.fin-al-g{background:#e8f5e3;border-left:3px solid var(--verde);color:#1c7a4f;}
 .fin-al-r{background:#fde8e8;border-left:3px solid #ef4444;color:#c0392b;}
 .fin-al-a{background:#fef9e7;border-left:3px solid var(--dourado);color:#7d5a0a;}
 .fin-al-b{background:#eaf1fb;border-left:3px solid #3b82f6;color:#1e40af;}
@@ -247,8 +247,23 @@ select.inp option{background:var(--marrom2);color:var(--text);}
 .tbl tr:nth-child(even) td,.st-tr:nth-child(even) .st-td,.fin-tbl tr:nth-child(even) td{background:var(--bege)!important;}
 .st-foot .st-td{background:var(--bege2)!important;}
 /* números grandes / labels */
-.v-big,.mc-val,.eq-total,.fin-mc-v,.fin-bb-pct{color:var(--dourado2);}
-.card-lbl,.mc-lbl{color:var(--muted);}
+.v-big,.mc-val,.eq-total,.fin-mc-v,.fin-bb-pct{color:var(--dourado2)!important;}
+.card-lbl,.mc-lbl{color:var(--muted)!important;}
+/* ===== CONTRASTE: textos que eram marrom escuro -> claros ===== */
+.mes-label,.sec,.hi-val,.fnome,.eq-nome,.st-td:first-child,.st-total,
+.modal h3,.fin-rv,.fin-rtot-n,.fin-sl-out,.login-card h2,.fin-mc-v{color:var(--text)!important;}
+.mes-btn{color:var(--dourado2)!important;}
+.st-foot .st-td{color:var(--dourado2)!important;}
+.fin-sub-tab.on{color:var(--dourado2)!important;}
+.motiv{color:var(--dourado2)!important;}
+/* avatares dourados com texto escuro (fundo claro dourado) -> mantém escuro */
+.u-av{color:#0f1e1c!important;}
+.fav,.eq-av{color:var(--dourado2)!important;}
+/* botão outline */
+.bo{border-color:var(--dourado)!important;color:var(--dourado2)!important;}
+.fedit{color:var(--text)!important;}
+/* força qualquer texto inline em marrom a ficar claro dentro do app */
+#tela-app [style*="color:var(--marrom)"],#tela-app [style*="color: var(--marrom)"]{color:var(--text)!important;}
 /* tabs */
 .tabs{background:var(--marrom2);}
 .tab.active{background:var(--card);color:var(--dourado2);}
@@ -266,6 +281,9 @@ select.inp option{background:var(--marrom2);color:var(--text);}
 ::-webkit-scrollbar{width:8px;height:8px;}
 ::-webkit-scrollbar-thumb{background:var(--bege2);border-radius:8px;}
 ::-webkit-scrollbar-track{background:transparent;}
+/* campos de data — ícone claro e campo todo clicável */
+input[type="date"]{cursor:pointer;color-scheme:dark;}
+input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.75;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -385,7 +403,7 @@ select.inp option{background:var(--marrom2);color:var(--text);}
   <div class="screen" id="sc-ger">
     <div class="sec">Lançar venda</div>
     <select class="inp" id="g-sel"></select>
-    <input type="date" class="inp" id="g-dia"/>
+    <input type="date" class="inp" id="g-dia" onclick="try{this.showPicker()}catch(e){}"/>
     <input type="text" inputmode="numeric" class="inp inp-money" id="g-val" placeholder="Valor da venda (R$)"/>
     <input type="text" class="inp" id="g-obs" placeholder="Observação (opcional, até 50 caracteres)" maxlength="50"/>
     <button class="btn bp" id="btn-add-venda">+ Adicionar venda</button>
@@ -399,14 +417,15 @@ select.inp option{background:var(--marrom2);color:var(--text);}
     <select class="inp" id="fer-sel">
       <option value="todos">Todos os funcionários / loja fechada</option>
     </select>
-    <input type="date" class="inp" id="fer-dia"/>
+    <input type="date" class="inp" id="fer-dia" onclick="try{this.showPicker()}catch(e){}"/>
     <input type="text" class="inp" id="fer-obs" placeholder="Motivo (ex: Feriado municipal) — até 50 caracteres" maxlength="50"/>
     <button class="btn by" id="btn-add-feriado">📌 Registrar feriado</button>
     <div class="ok" id="fer-msg"></div>
     <div class="divider"></div>
 
     <div class="sec">🔔 Central de alertas</div>
-    <button class="btn bo" id="btn-verificar-avisos">🔍 Verificar lançamentos do mês</button>
+    <div id="g-avisos-resumo"></div>
+    <button class="btn bo" id="btn-verificar-avisos">🔍 Reverificar lançamentos do mês</button>
     <div id="g-avisos"></div>
     <div class="divider"></div>
     <div class="sec">Dashboard por funcionária</div>
@@ -939,6 +958,7 @@ function renderGer(){
   const hoje=new Date().toISOString().split("T")[0];
   document.getElementById("g-dia").value=hoje;
   document.getElementById("fer-dia").value=hoje;
+  try{verificarAvisos();}catch(e){}
 
 // ===== MÊS SELETORES ADICIONAIS =====
 let mesSel2 = new Date().getMonth(), anoSel2 = new Date().getFullYear();
@@ -1247,8 +1267,12 @@ function verificarAvisos(){
     }
   }
 
+  const resumo=document.getElementById("g-avisos-resumo");
+  const mesLabel=MESES[mesSel]+"/"+anoSel;
+
   if(!avisos.length){
-    cont.innerHTML='<div class="fin-al fin-al-g" style="margin-top:8px">✓ Tudo certo! Nenhuma pendência de lançamento neste mês.</div>';
+    if(resumo) resumo.innerHTML=`<div class="fin-al fin-al-g" style="margin:0 0 10px;font-size:14px;font-weight:600;line-height:1.5">✅ Tudo lançado corretamente em ${mesLabel}!<br><span style="font-weight:400;font-size:12px">Nenhuma pendência ou lançamento duplicado encontrado.</span></div>`;
+    cont.innerHTML="";
     return;
   }
   // ordena: erros primeiro, depois avisos, depois info
@@ -1257,7 +1281,27 @@ function verificarAvisos(){
   const cls={err:"fin-al-r",warn:"fin-al-a",info:"fin-al-b"};
   const nErr=avisos.filter(a=>a.tipo==="err").length;
   const nWarn=avisos.filter(a=>a.tipo==="warn").length;
-  let html=`<div style="font-size:12px;color:var(--muted);margin:8px 0 6px">${nErr} pendência(s) · ${nWarn} aviso(s)</div>`;
+
+  // Painel-resumo com linguagem direta
+  if(resumo){
+    // pega os dias que precisam de atenção (err + warn), sem repetir
+    const diasProblema=[...new Set(avisos.filter(a=>a.tipo!=="info").map(a=>a.txt.split(" ")[0]))];
+    let listaDias=diasProblema.slice(0,8).join(", ");
+    if(diasProblema.length>8) listaDias+=` e mais ${diasProblema.length-8}`;
+    const temDup=avisos.some(a=>a.txt.includes("lançamentos"));
+    const temFalta=avisos.some(a=>a.tipo==="err");
+    let msg="⚠️ Há pontos para revisar em "+mesLabel+".";
+    let det=[];
+    if(temFalta) det.push("dias sem lançamento");
+    if(temDup) det.push("lançamento duplicado da mesma vendedora");
+    resumo.innerHTML=`<div class="fin-al fin-al-a" style="margin:0 0 10px;font-size:14px;font-weight:600;line-height:1.55">
+      ${msg}<br>
+      <span style="font-weight:400;font-size:12px">${det.length?"Verifiquei: "+det.join(" e ")+".<br>":""}Revise: <strong style="color:var(--dourado2)">${listaDias}</strong></span><br>
+      <span style="font-weight:400;font-size:11px;opacity:.85">${nErr} pendência(s) · ${nWarn} aviso(s) — detalhes abaixo</span>
+    </div>`;
+  }
+
+  let html=`<div style="font-size:12px;color:var(--muted);margin:8px 0 6px;font-weight:600">Detalhamento por dia</div>`;
   html+=avisos.map(a=>`<div class="fin-al ${cls[a.tipo]}" style="margin-bottom:6px">${a.txt}</div>`).join("");
   cont.innerHTML=html;
 }
