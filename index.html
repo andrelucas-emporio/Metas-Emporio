@@ -4,6 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <title>Empório Vendas</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<meta name="app-version" content="hist-mes-grid-v2"/>
 <link rel="manifest" href="manifest.json"/>
 <meta name="theme-color" content="#3d1f06"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -300,6 +304,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.
     <div class="login-err" id="lerr"></div>
     <div class="login-spin" id="lspin"></div>
   </div>
+  <button id="btn-atualizar-app" style="margin-top:16px;background:transparent;border:1.5px solid var(--dourado);color:var(--dourado2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:10px 18px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:6px">🔄 Atualizar app</button>
+  <div id="atualizar-msg" style="color:var(--muted);font-size:11px;margin-top:8px;min-height:14px;text-align:center"></div>
 </div>
 
 <div id="tela-app">
@@ -781,6 +787,24 @@ function stopListeners(){
 
 // LOGIN
 document.getElementById("btn-login").addEventListener("click",doLogin);
+// Atualizar app — limpa caches e recarrega sem cache
+document.getElementById("btn-atualizar-app").addEventListener("click",async function(){
+  const msg=document.getElementById("atualizar-msg");
+  msg.textContent="Limpando cache e atualizando...";
+  try{
+    if("serviceWorker" in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      for(const r of regs) await r.unregister();
+    }
+    if(window.caches){
+      const keys=await caches.keys();
+      await Promise.all(keys.map(k=>caches.delete(k)));
+    }
+  }catch(e){}
+  // recarrega forçando buscar do servidor
+  const url=location.href.split("?")[0]+"?v="+Date.now();
+  location.replace(url);
+});
 document.getElementById("inp-pass").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin();});
 
 async function doLogin(){
@@ -1212,7 +1236,10 @@ function verificarAvisos(){
   const hoje=new Date();
   const ehMesCorrente=(mesSel===hoje.getMonth()&&anoSel===hoje.getFullYear());
   const ultimoDia=ehMesCorrente?hoje.getDate():new Date(anoSel,mesSel+1,0).getDate();
-  const usuarios=Object.entries(USERS);
+  const usuarios=Object.entries(USERS).filter(([k,u])=>{
+    const login=(u.u||"").toLowerCase();
+    return login!=="adm"&&login!=="teste"&&login!=="admin";
+  });
   const avisos=[];
 
   // feriados do mês -> mapa por data
@@ -1250,6 +1277,8 @@ function verificarAvisos(){
     const contagem={};
     vendasDia.forEach(v=>{contagem[v.u]=(contagem[v.u]||0)+1;});
     Object.entries(contagem).forEach(([uid,qtd])=>{
+      const login=(USERS[uid]&&USERS[uid].u||"").toLowerCase();
+      if(login==="adm"||login==="teste"||login==="admin") return;
       if(qtd>2){
         const nome=USERS[uid]?USERS[uid].nome:uid;
         avisos.push({tipo:"warn",txt:`${diaLabel} — ${nome} tem ${qtd} lançamentos (mais de 2). Verificar duplicidade.`});
@@ -1319,7 +1348,7 @@ function renderHist(){
   const lbl=document.getElementById("gh-mes-lbl");
   if(lbl) lbl.textContent=MESES[mesGH]+" "+anoGH;
   const mk=mkGH();
-  const vs=Object.entries(VENDAS).filter(([k,v])=>v.d&&v.d.startsWith(mk)).sort((a,b)=>b[1].d.localeCompare(a[1].d));
+  const vs=Object.entries(VENDAS).filter(([k,v])=>v.d&&v.d.startsWith(mk)).sort((a,b)=>a[1].d.localeCompare(b[1].d));
   el.innerHTML="";
   if(!vs.length){el.innerHTML='<div class="empty">Nenhuma venda neste mês.</div>';return;}
   const grid=document.createElement("div");
