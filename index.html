@@ -401,6 +401,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.
   </div>
 
   <div class="screen" id="sc-ger">
+    <div id="g-avisos-resumo" style="margin-bottom:6px"></div>
     <div class="sec">Lançar venda</div>
     <select class="inp" id="g-sel"></select>
     <input type="date" class="inp" id="g-dia" onclick="try{this.showPicker()}catch(e){}"/>
@@ -409,6 +410,11 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.
     <button class="btn bp" id="btn-add-venda">+ Adicionar venda</button>
     <div class="ok" id="g-msg"></div>
     <div class="sec">Histórico de lançamentos</div>
+    <div class="mes-selector" style="margin-bottom:10px">
+      <button class="mes-btn" id="gh-mes-ant">&#8249;</button>
+      <div class="mes-label" id="gh-mes-lbl" style="font-size:14px;min-width:130px">Carregando...</div>
+      <button class="mes-btn" id="gh-mes-prox">&#8250;</button>
+    </div>
     <div id="g-hist"><div class="loading-txt">Carregando...</div></div>
     <div class="divider"></div>
 
@@ -424,7 +430,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.
     <div class="divider"></div>
 
     <div class="sec">🔔 Central de alertas</div>
-    <div id="g-avisos-resumo"></div>
     <button class="btn bo" id="btn-verificar-avisos">🔍 Reverificar lançamentos do mês</button>
     <div id="g-avisos"></div>
     <div class="divider"></div>
@@ -954,6 +959,7 @@ function renderTabela(idx){
 }
 
 function renderGer(){
+  mesGH=new Date().getMonth();anoGH=new Date().getFullYear();
   renderFuncSel();renderFuncDashSel();renderHist();renderFuncs();renderFerSel();
   const hoje=new Date().toISOString().split("T")[0];
   document.getElementById("g-dia").value=hoje;
@@ -1306,20 +1312,30 @@ function verificarAvisos(){
   cont.innerHTML=html;
 }
 
+let mesGH = new Date().getMonth(), anoGH = new Date().getFullYear();
+function mkGH(){return anoGH+"-"+String(mesGH+1).padStart(2,"0");}
 function renderHist(){
   const el=document.getElementById("g-hist");
-  const vs=Object.entries(VENDAS).reverse();
+  const lbl=document.getElementById("gh-mes-lbl");
+  if(lbl) lbl.textContent=MESES[mesGH]+" "+anoGH;
+  const mk=mkGH();
+  const vs=Object.entries(VENDAS).filter(([k,v])=>v.d&&v.d.startsWith(mk)).sort((a,b)=>b[1].d.localeCompare(a[1].d));
   el.innerHTML="";
-  if(!vs.length){el.innerHTML='<div class="empty">Nenhuma venda lançada ainda.</div>';return;}
+  if(!vs.length){el.innerHTML='<div class="empty">Nenhuma venda neste mês.</div>';return;}
+  const grid=document.createElement("div");
+  grid.style.cssText="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px";
   vs.forEach(([k,v])=>{
     const p=v.d.split("-"),u=USERS[v.u],nm=u?u.nome:v.u;
-    const div=document.createElement("div");div.className="hi";
+    const div=document.createElement("div");div.className="hi";div.style.marginBottom="0";
     const obsHtml=v.obs?`<div class="hi-dia" style="font-style:italic;color:var(--dourado)">📝 ${v.obs}</div>`:"";
-    div.innerHTML=`<div><div class="hi-val">${fmt(v.v)}</div><div class="hi-dia">${nm} · ${p[2]}/${p[1]}/${p[0]}</div>${obsHtml}</div><button class="xbtn" data-key="${k}">✕</button>`;
-    el.appendChild(div);
+    div.innerHTML=`<div style="min-width:0"><div class="hi-val">${fmt(v.v)}</div><div class="hi-dia">${nm} · ${p[2]}/${p[1]}</div>${obsHtml}</div><button class="xbtn" data-key="${k}">✕</button>`;
+    grid.appendChild(div);
   });
+  el.appendChild(grid);
   el.querySelectorAll(".xbtn").forEach(b=>b.addEventListener("click",function(){db.ref("vendas/"+this.dataset.key).remove();}));
 }
+document.getElementById("gh-mes-ant").addEventListener("click",function(){mesGH--;if(mesGH<0){mesGH=11;anoGH--;}renderHist();});
+document.getElementById("gh-mes-prox").addEventListener("click",function(){mesGH++;if(mesGH>11){mesGH=0;anoGH++;}renderHist();});
 
 function renderFuncs(){
   const el=document.getElementById("g-func-lista");
